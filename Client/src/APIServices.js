@@ -1,8 +1,8 @@
 export default class APIService{
     // Insert an article
     static InsertArticle(url){
-        return fetch(`http://localhost:5000/utubelink`,{
-            'method':'POST',
+        return fetch(`http://localhost:5000/mnamesloc`,{
+            'method':'GET',
              headers : {
             'Content-Type':'application/json'
       },

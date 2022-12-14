@@ -2,6 +2,7 @@ import React from "react";
 import './App.css';
 import Home from './Home';
 import Ent from './Ent';
+import Media from './Media';
 import Downloader from './YoutubeDownloader';
 import {
   BrowserRouter as Router,
@@ -16,6 +17,7 @@ function App() {
         <Routes>            
           <Route exact path="/" element={<Home />}> </Route>
           <Route exact path="/Ent" element={<Ent />}> </Route>
+          <Route exact path="/Media" element={<Media />}> </Route>
           <Route exact path="Downloader" element={<Downloader />}></Route>
         </Routes>
     </Router>
