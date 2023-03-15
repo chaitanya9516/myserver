@@ -1,6 +1,23 @@
-#upload {
+.navbar {
+  background-color: #817f7fcf;
+}
+
+#uploaddiv2 {
   display: none;
-  height: 160px;
-  width: auto;
-  background-color: #eeeee4;
+  height: 40%;
+  width: 50%;
+  padding: 10px;
+  border: 1px solid;
+  background-color: #c0c0c0;
+  /* z-index: 122px; */
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 12px 10px #888888;
+}
+
+#uploaddiv1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
