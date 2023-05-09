@@ -46,7 +46,9 @@ function writeMnames(res) {
         img.src =
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\folder.jpg";
         // document.body.appendChild(img);
-        document.write("<br>");
+        // document.write("<br>");
+        var br = document.createElement("br");
+        // document.body.appendChild(br);
         var a = document.createElement("a");
         // a.setAttribute("onclick", "getId(this) ; superFunc()");
         a.setAttribute("onclick", "getId(this)");
@@ -62,12 +64,15 @@ function writeMnames(res) {
         a.id = i;
         document.body.appendChild(img);
         document.body.appendChild(a);
+        document.body.appendChild(br);
       } else if (movies) {
         let img = document.createElement("img");
         img.src =
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\movies.jpg";
         // document.body.appendChild(img);
-        document.write("<br>");
+        // document.write("<br>");
+        var br = document.createElement("br");
+        document.body.appendChild(br);
         var a = document.createElement("a");
         // a.setAttribute("onclick", "getId(this) ; superFunc()");
         a.setAttribute("onclick", "getId(this)");
@@ -86,12 +91,14 @@ function writeMnames(res) {
         // mnamesDiv.appendChild(a);
         document.body.appendChild(img);
         document.body.appendChild(a);
+        document.body.appendChild(br);
       } else {
         //icon
         let img = document.createElement("img");
         img.src =
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\file.jpg";
-        document.write("<br>");
+        // document.write("<br>");
+        var br = document.createElement("br");
         var a = document.createElement("a");
         // a.setAttribute("onclick", "getId(this) ; superFunc()");
         a.setAttribute("onclick", "getId(this)");
@@ -107,6 +114,7 @@ function writeMnames(res) {
         a.id = i;
         document.body.appendChild(img);
         document.body.appendChild(a);
+        document.body.appendChild(br);
       }
     }
   }
