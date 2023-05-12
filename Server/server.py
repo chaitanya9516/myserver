@@ -20,7 +20,7 @@ def mnames():
         jsondata = request.form.get('url')
         data = jsondata
         dirContentName = os.listdir(data)  # get names with extensions
-        print(dirContentName)
+        # print(dirContentName)
         jsonn = json.dumps(dirContentName)
         return jsonn
 
@@ -76,9 +76,10 @@ def createFolder():
 #         print(str(e))
 #         return "error"
 
-# @app.route('/')
-# def home():
-#    return render_template("home.html");
+
+@app.route('/')
+def home():
+    return render_template("home.html")
 
 
 if __name__ == "__main__":

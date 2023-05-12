@@ -22,12 +22,13 @@ function writeMnames(res) {
   // debugger;
   data = res;
   //Below if condition is to check the folder has some files or not
+  debugger;
   if (data.length == 0) {
     // document.body.innerHTML = "No files found!";
-    document.getElementById("mnames").innerHTML += "No files found!";
+    document.getElementById("folderContent").innerHTML += "No files found!";
   } else {
     sessionStorage.setItem("source", data);
-    // var img = document.createElement("img");
+    var divElement = document.getElementById("folderContent");
     for (let i = 0; i < data.length; i++) {
       // debugger;
       let fol = !data[i].includes(".");
@@ -45,12 +46,8 @@ function writeMnames(res) {
         let img = document.createElement("img");
         img.src =
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\folder.jpg";
-        // document.body.appendChild(img);
-        // document.write("<br>");
         var br = document.createElement("br");
-        // document.body.appendChild(br);
         var a = document.createElement("a");
-        // a.setAttribute("onclick", "getId(this) ; superFunc()");
         a.setAttribute("onclick", "getId(this)");
         a.style = "text-decoration:none";
         a.style.font = "bold 15px arial,sans-serif";
@@ -62,19 +59,19 @@ function writeMnames(res) {
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\dir.html";
         //change the url when deploying
         a.id = i;
-        document.body.appendChild(img);
-        document.body.appendChild(a);
-        document.body.appendChild(br);
+        divElement.appendChild(img);
+        divElement.appendChild(a);
+        divElement.appendChild(br);
+        // document.body.appendChild(img);
+        // document.body.appendChild(a);
+        // document.body.appendChild(br);
       } else if (movies) {
         let img = document.createElement("img");
         img.src =
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\movies.jpg";
-        // document.body.appendChild(img);
-        // document.write("<br>");
         var br = document.createElement("br");
         document.body.appendChild(br);
         var a = document.createElement("a");
-        // a.setAttribute("onclick", "getId(this) ; superFunc()");
         a.setAttribute("onclick", "getId(this)");
         a.style = "text-decoration:none";
         a.style.font = "bold 15px arial,sans-serif";
@@ -86,21 +83,19 @@ function writeMnames(res) {
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\videoplayer.html";
         //change the url when deploying
         a.id = i;
-        // let mnamesDiv = document.getElementById("mnames");
-        // mnamesDiv.appendChild(img);
-        // mnamesDiv.appendChild(a);
-        document.body.appendChild(img);
-        document.body.appendChild(a);
-        document.body.appendChild(br);
+        divElement.appendChild(img);
+        divElement.appendChild(a);
+        divElement.appendChild(br);
+        // document.body.appendChild(img);
+        // document.body.appendChild(a);
+        // document.body.appendChild(br);
       } else {
         //icon
         let img = document.createElement("img");
         img.src =
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\file.jpg";
-        // document.write("<br>");
         var br = document.createElement("br");
         var a = document.createElement("a");
-        // a.setAttribute("onclick", "getId(this) ; superFunc()");
         a.setAttribute("onclick", "getId(this)");
         a.style = "text-decoration:none";
         a.style.font = "bold 15px arial,sans-serif";
@@ -112,9 +107,12 @@ function writeMnames(res) {
           "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\files.html";
         //change the url when deploying
         a.id = i;
-        document.body.appendChild(img);
-        document.body.appendChild(a);
-        document.body.appendChild(br);
+        divElement.appendChild(img);
+        divElement.appendChild(a);
+        divElement.appendChild(br);
+        // document.body.appendChild(img);
+        // document.body.appendChild(a);
+        // document.body.appendChild(br);
       }
     }
   }
@@ -126,20 +124,32 @@ function removeLine() {
 }
 
 function back() {
+  debugger; //created a array to split the url and join it
+  let newArray = [];
   let history = sessionStorage.getItem("history");
   let myArray = history.split("\\");
   myArray.pop();
-  myArray.join("\\");
+  newArray = myArray.join("\\");
+  sessionStorage.setItem("history", newArray); //creating the history again to use it again in any oyher case.
+  console.log(newArray);
 
   $.ajax({
     url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
     type: "POST",
     data: {
-      url: myArray,
+      url: newArray,
     },
     dataType: "json",
     success: function (res) {
       // debugger;
+      // let len = history.split("\\");
+      var divElement = document.getElementById("folderContent");
+      let divnodelen = divElement.childNodes.length;
+      let i = 0;
+      while (i < divnodelen) {
+        divElement.removeChild(divElement.firstChild);
+        i++;
+      }
       //getting data from server and creating elements for the data
       writeMnames(res);
     },
@@ -149,22 +159,6 @@ function back() {
     },
   });
 }
-
-// function getnames(yes) {
-//   $.ajax({
-//     url: "http://127.0.0.1:5000/mnamesloc",
-//     type: "GET",
-//     dataType: "json",
-//     success: function (res) {
-//       // debugger;
-//       writeMnames(res);
-//     },
-//     error: function (err) {
-//       alert("unable to load please try again" + err);
-//       console.log(err);
-//     },
-//   });
-// } old function with no changes
 
 function createFolder() {
   let foo = prompt("Folder Name");
