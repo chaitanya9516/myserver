@@ -32,12 +32,12 @@ $(document).ready(function () {
   }
   //Identifying directory/folder from result
   else if (!result.includes(".")) {
-    debugger;
+    // debugger;
     //Below if statement will verify that opening of the folder for the first time(for the first time session length will be 2 only) or not..?
     if (sessionStorage.length == 2) {
-      //getting last word of past url
+      //getting last word to past url
       sessionStorage.setItem("history", result);
-      //getnames();
+      // getnames(result);
       $.ajax({
         url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
         type: "POST",
@@ -58,16 +58,12 @@ $(document).ready(function () {
     }
     //opening the dir if it encounters
     else {
-      // localStorage.clear();
-      // var pth2 = sessionStorage.getItem("source"); // Getting updated data files list from sessionstorage.
-      //let value = pth2.split(",")[id].trim(); //Identifying from the list of file, which file is clicked using its id.
-
       let latestUrl = sessionStorage.getItem("history"); // Fetching past url from session storage.
       // let newLink = latestUrl + "\\" + value; // Adding slashes with present url and past url.
       let newLink = latestUrl + "\\" + path.split(",")[id].trim(); // Adding slashes with present url and past url.
       sessionStorage.setItem("history", newLink); //Storing present url in session to fetch as past url if necessary.
 
-      // getnames();
+      // getnames(result);
       $.ajax({
         url: "http://127.0.0.1:5000/mnamesloc",
         type: "POST",

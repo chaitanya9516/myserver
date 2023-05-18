@@ -31,8 +31,14 @@
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
     ></script>
     <!-- Custom scripts -->
-    <script type="text/javascript" src="scripts/getnames.js" defer></script>
+    <script
+      type="text/javascript"
+      src="scripts/writegetnames.js"
+      defer
+    ></script>
     <script type="text/javascript" src="scripts/annonmusfunc.js" defer></script>
+    <script type="text/javascript" src="scripts/navfunc.js" defer></script>
+
     <title>Welcome</title>
   </head>
   <body>
@@ -47,19 +53,21 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <!-- <span class="navbar-toggler-icon"></span> -->
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <span class="material-icons" onclick="back()">arrow_back</span>
-              <span class="material-icons" onclick="createFolder()"
+              <span
+                class="material-icons"
+                onclick="createFolder()"
+                data-toggle="modal"
+                data-target="#exampleModal"
                 >folder</span
               >
               <span class="material-icons" onclick="uploadFile()">upload</span>
-              <span class="material-icons" onclick="createFolder()"
-                >delete</span
-              >
+              <span class="material-icons" onclick="del()">delete</span>
             </li>
           </ul>
         </div>

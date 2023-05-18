@@ -44,6 +44,21 @@ def upload():
         print(str(e))
 
 
+@app.route("/delete", methods=["GET", "POST"])
+def delete():
+    try:
+        if request.method == 'POST':
+            f = request.get_json()
+            if f != ".":
+                os.rmdir(f)
+            else:
+                os.remove(f)
+        return 'file deleted successfully'
+
+    except Exception as e:
+        print(str(e))
+
+
 @app.route("/createFolder", methods=["GET", "POST"])
 def createFolder():
     data = request.get_data()
