@@ -5,7 +5,6 @@ import json
 from werkzeug.utils import secure_filename
 
 folder_path = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
-
 app = Flask(__name__)
 app.config['UPLOAD_PATH'] = folder_path
 # app.config['MAX_CONTENT_PATH'] = 1024
@@ -49,10 +48,14 @@ def delete():
     try:
         if request.method == 'POST':
             f = request.get_json()
-            if f != ".":
-                os.rmdir(f)
+            print(type(f))
+            length = len(f)
+            print(length)
+        for i in range(length):
+            if f[i] != ".":
+                os.rmdir(f[i])
             else:
-                os.remove(f)
+                os.remove(f[i])
         return 'file deleted successfully'
 
     except Exception as e:
