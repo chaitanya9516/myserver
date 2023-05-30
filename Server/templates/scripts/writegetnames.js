@@ -1,13 +1,12 @@
 var data;
-//communicate with the server and fetching list of dir or files in the path and store them in the session storage.
-function getnames(data) {
-  // debugger;
+
+function ajax(urlData) {
   $.ajax({
     url: "http://127.0.0.1:5000/mnamesloc",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     data: {
-      url: data,
+      url: urlData,
     },
     success: function (res) {
       // debugger;
@@ -18,6 +17,16 @@ function getnames(data) {
       console.log(err);
     },
   });
+}
+
+//communicate with the server and fetching list of dir or files in the path and store them in the session storage.
+function getnames(url) {
+  // debugger;
+  if (url != null) {
+    ajax(url);
+  } else {
+    ajax("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
+  }
 }
 
 //Below functions creates the elements in the dom.

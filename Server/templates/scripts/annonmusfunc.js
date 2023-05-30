@@ -37,50 +37,49 @@ $(document).ready(function () {
     if (sessionStorage.length == 2) {
       //getting last word to past url
       sessionStorage.setItem("history", result);
-      // getnames(result);
-      $.ajax({
-        url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
-        type: "POST",
-        data: {
-          url: result,
-        },
-        dataType: "json",
-        success: function (res) {
-          // debugger;
-          //getting data from server and creating elements for the data
-          writeMnames(res);
-        },
-        error: function (err) {
-          alert("unable to load please try again");
-          console.log(err);
-        },
-      });
+      getnames(result);
+      // $.ajax({
+      //   url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
+      //   type: "POST",
+      //   data: {
+      //     url: result,
+      //   },
+      //   dataType: "json",
+      //   success: function (res) {
+      //     // debugger;
+      //     //getting data from server and creating elements for the data
+      //     writeMnames(res);
+      //   },
+      //   error: function (err) {
+      //     alert("unable to load please try again");
+      //     console.log(err);
+      //   },
+      // });
     }
     //opening the dir if it encounters
     else {
       let latestUrl = sessionStorage.getItem("history"); // Fetching past url from session storage.
-      // let newLink = latestUrl + "\\" + value; // Adding slashes with present url and past url.
       let newLink = latestUrl + "\\" + path.split(",")[id].trim(); // Adding slashes with present url and past url.
       sessionStorage.setItem("history", newLink); //Storing present url in session to fetch as past url if necessary.
 
-      // getnames(result);
-      $.ajax({
-        url: "http://127.0.0.1:5000/mnamesloc",
-        type: "POST",
-        data: {
-          url: newLink,
-        },
-        dataType: "json",
-        success: function (res) {
-          // debugger;
-          //getting data from server and creating elements for the data
-          writeMnames(res);
-        },
-        error: function (err) {
-          alert("unable to load please try again");
-          console.log(err);
-        },
-      });
+      getnames(newLink);
+      // $.ajax({
+      //   url: "http://127.0.0.1:5000/mnamesloc",
+      //   type: "POST",
+      //   data: {
+      //     url: newLink,
+      //   },
+      //   dataType: "json",
+      //   success: function (res) {
+      //     // debugger;
+      //     //getting data from server and creating elements for the data
+      //     writeMnames(res);
+      //   },
+      //   error: function (err) {
+      //     alert("unable to load please try again");
+      //     console.log(err);
+      //   },
+      // });
     }
   }
   //Opening the pdf or notepad or image files and other files will be download.
