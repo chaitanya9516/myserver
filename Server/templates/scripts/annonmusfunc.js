@@ -38,23 +38,6 @@ $(document).ready(function () {
       //getting last word to past url
       sessionStorage.setItem("history", result);
       getnames(result);
-      // $.ajax({
-      //   url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
-      //   type: "POST",
-      //   data: {
-      //     url: result,
-      //   },
-      //   dataType: "json",
-      //   success: function (res) {
-      //     // debugger;
-      //     //getting data from server and creating elements for the data
-      //     writeMnames(res);
-      //   },
-      //   error: function (err) {
-      //     alert("unable to load please try again");
-      //     console.log(err);
-      //   },
-      // });
     }
     //opening the dir if it encounters
     else {
@@ -63,23 +46,6 @@ $(document).ready(function () {
       sessionStorage.setItem("history", newLink); //Storing present url in session to fetch as past url if necessary.
 
       getnames(newLink);
-      // $.ajax({
-      //   url: "http://127.0.0.1:5000/mnamesloc",
-      //   type: "POST",
-      //   data: {
-      //     url: newLink,
-      //   },
-      //   dataType: "json",
-      //   success: function (res) {
-      //     // debugger;
-      //     //getting data from server and creating elements for the data
-      //     writeMnames(res);
-      //   },
-      //   error: function (err) {
-      //     alert("unable to load please try again");
-      //     console.log(err);
-      //   },
-      // });
     }
   }
   //Opening the pdf or notepad or image files and other files will be download.

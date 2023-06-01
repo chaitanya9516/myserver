@@ -24,8 +24,9 @@ def mnames():
         return jsonn
 
     else:
-        location = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
-        dirContentName = os.listdir(location)  # will get names with extensions
+        defLocation = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
+        # will get names with extensions
+        dirContentName = os.listdir(defLocation)
         jsonn = json.dumps(dirContentName)
         return jsonn
 
@@ -78,6 +79,23 @@ def createFolder():
     except OSError:
         print('Error: Creating directory. ' + data)
         return "Failed To Create"
+
+# adding views to different views
+
+# @app.route('/dir')
+# def dir():
+#     return render_template('dir.html')
+
+
+# @app.route('/video')
+# def video():
+#     return render_template('videoplayer.html')
+
+
+# @app.route('/files')
+# def files():
+#     return render_template('files.html')
+
 
 # createFolder(f'./{data}/')  #fstring is used here
 # @app.route("/utubelink", methods=["POST"])
