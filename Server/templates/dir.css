@@ -1,23 +1,29 @@
 body {
-  background-color: #333333;
-  color: #ffffff;
+  background-color: #f6f8fa !important;
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-#folderContent {
-  /* list-style-type: none;
-  padding: 0; */
+/* a {
+  color: #030303;
+} */
+
+/* #folderContent {
   margin: 20px auto;
   max-width: 800px;
-}
+} */
 
 #folderContent {
-  background-color: #222222;
-  padding: 10px 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  background-color: rgb(255 255 255);
+  padding: 10px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center;  */
   margin-bottom: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgb(221 10 10 / 30%);
   font-size: 20px;
-  color: #ffffff;
+  color: #030303;
   font-family: "Cinzel", serif;
 }

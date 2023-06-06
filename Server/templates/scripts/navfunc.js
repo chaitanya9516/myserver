@@ -116,7 +116,7 @@ function showDiv() {
 
 var defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate";
 function del() {
-  debugger;
+  // debugger;
   //get the delete id from seesions which stored ussing delid func
   var id = JSON.parse(sessionStorage.getItem("delId"));
   if (Array.isArray(id)) {
@@ -193,5 +193,25 @@ function del() {
         //have run reload function after deleting the file to refresh the page
       )
       .catch((error) => console.log("ERROR:" + error));
+  }
+}
+
+function refresh() {
+  var history = sessionStorage.getItem("history");
+  if (history != null) {
+    ajax(history);
+  } else {
+    ajax(defUrl);
+  }
+  // 1)get the histurl and fetch all the files from server and use write func
+  // 2)if histurl doesnt have anything then use defurl to fetch the data and write
+}
+
+function forward() {
+  // 1) use histurl to fetch data from server and write
+  // let history = sessionStorage.getItem("history");
+
+  if (history != null) {
+    ajax(history);
   }
 }

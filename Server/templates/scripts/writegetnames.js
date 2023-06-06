@@ -1,5 +1,3 @@
-var data;
-
 function ajax(urlData) {
   $.ajax({
     url: "http://127.0.0.1:5000/mnamesloc",
@@ -37,10 +35,6 @@ function writeElements(data) {
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("onclick", "delId(this)");
     checkbox.id = i;
-
-    // let img = document.createElement("img");
-    // img.src =
-    //   "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\icons\\folder.jpg";
     let span = document.createElement("span");
     span.setAttribute("class", "material-icons");
     let fol = !data[i].includes(".");
@@ -64,8 +58,8 @@ function writeElements(data) {
     var a = document.createElement("a");
     a.setAttribute("onclick", "getId(this)");
     a.style = "text-decoration:none";
-    a.style.font = "bold 20px Cinzel,sans-serif";
-    // a.style.color = "#ffffff";
+    a.style.font = "bold 22px Cinzel,sans-serif";
+    a.style.color = "rgb(23 23 23)";
     var linkText = document.createTextNode(data[i]);
     a.appendChild(linkText);
     a.title = data[i];
@@ -91,15 +85,12 @@ function writeElements(data) {
 
 //Below functions creates the elements in the dom.
 function writeMnames(res) {
-  data = res;
-  //Below if condition is to check the folder has some files or not
   //debugger;
-  if (data.length == 0) {
-    // document.body.innerHTML = "No files found!";
+  if (res.length == 0) {
     document.getElementById("folderContent").innerHTML += "No files found!";
   } else {
-    sessionStorage.setItem("source", data); //create local storage here
-    writeElements(data);
+    sessionStorage.setItem("source", res); //create local storage here
+    writeElements(res);
   }
 }
 

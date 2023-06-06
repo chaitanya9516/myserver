@@ -1,5 +1,16 @@
 .navbar {
-  background-color: #817f7fcf;
+  background-color: #24292f;
+  color: #fff;
+  /* margin-right: 20px; */
+}
+
+.navbar-nav .nav-item .nav-link {
+  margin-right: 10px; /* Increase this value to adjust the space between icons */
+}
+
+.material-icons {
+  font-size: 21px;
+  margin: 3px;
 }
 
 #uploaddiv2 {
