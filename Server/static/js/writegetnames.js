@@ -18,7 +18,7 @@ function ajax(urlData) {
 }
 
 //communicate with the server and fetching list of dir or files in the path and store them in the session storage.
-function getnames(url) {
+function getNames(url) {
   // debugger;
   if (url != null) {
     ajax(url);
@@ -95,9 +95,9 @@ function writeMnames(res) {
 }
 
 //Removing line for the
-function removeLine() {
-  document.getElementById(i).style = "text-decoration:none";
-}
+// function removeLine() {
+//   document.getElementById(i).style = "text-decoration:none";
+// }
 
 //This function is used to create the video player
 function video(path) {

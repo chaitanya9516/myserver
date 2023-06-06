@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="upload.css" />
-    <link rel="stylesheet" href="dir.css" />
+    <link rel="stylesheet" href="static/css/upload.css" />
+    <link rel="stylesheet" href="static/css/dir.css" />
     <!-- bootstrap css link -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -32,18 +32,22 @@
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
     ></script>
     <!-- Custom scripts -->
-    <script type="text/javascript" src="scripts/annonmusfunc.js" defer></script>
     <script
       type="text/javascript"
-      src="scripts/writegetnames.js"
+      src="static/js/writegetnames.js"
       defer
     ></script>
-    <script type="text/javascript" src="scripts/getid.js" defer></script>
-    <script type="text/javascript" src="scripts/navfunc.js" defer></script>
+    <script type="text/javascript" src="static/js/getid.js" defer></script>
+    <script type="text/javascript" src="static/js/navfunc.js" defer></script>
+    <script
+      type="text/javascript"
+      src="static/js/annonmusfunc.js"
+      defer
+    ></script>
 
     <title>Welcome</title>
   </head>
-  <body>
+  <body onload="getNames()">
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <button
@@ -99,7 +103,7 @@
       </div>
     </div>
     <div id="folderContent">
-      <button type="button" onclick="getnames()">Load Movies</button>
+      <!-- <button type="button" onclick="getNames()">Load Movies</button> -->
     </div>
     <!-- <div id="folderContent"></div> -->
   </body>
