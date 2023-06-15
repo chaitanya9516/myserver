@@ -1,9 +1,9 @@
 // storing id to help the annomusfunc file function to open the files
 //This function is used to identify, which element is clicked and get the extact element id then it is store in sessionstorage
-    function getId(btn) {
-    let id = btn.id;
-    sessionStorage.setItem("id", id);
-    }
+function getId(btn) {
+  let id = btn.id;
+  sessionStorage.setItem("id", id);
+}
 
 // storing id to help the del function to delete the files
 var id = [];

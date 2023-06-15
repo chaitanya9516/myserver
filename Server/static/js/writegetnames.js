@@ -1,4 +1,6 @@
-function ajax(urlData) {
+// @ts-nocheck
+
+function ajxFunc(urlData) {
   $.ajax({
     url: "http://127.0.0.1:5000/mnamesloc",
     type: "POST",
@@ -21,13 +23,14 @@ function ajax(urlData) {
 function getNames(url) {
   // debugger;
   if (url != null) {
-    ajax(url);
+    ajxFunc(url);
   } else {
-    ajax("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
+    ajxFunc("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
   }
 }
 
 function writeElements(data) {
+  // debugger;
   var divElement = document.getElementById("folderContent");
 
   for (let i = 0; i < data.length; i++) {
@@ -59,23 +62,29 @@ function writeElements(data) {
     a.setAttribute("onclick", "getId(this)");
     a.style = "text-decoration:none";
     a.style.font = "bold 22px Cinzel,sans-serif";
-    a.style.color = "rgb(23 23 23)";
+    // a.style.color = "rgb(23 23 23)";
+    a.style.color = "#ffffff";
     var linkText = document.createTextNode(data[i]);
     a.appendChild(linkText);
     a.title = data[i];
     if (fol) {
-      a.href =
-        "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\dir.html";
+      a.href = "/dir2";
     } else if (movies) {
-      a.href =
-        "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\videoplayer.html";
+      a.href = "/vide0";
     } else {
-      a.href =
-        "C:\\Users\\sushm\\OneDrive\\Desktop\\Documents\\mypractice\\myserver\\Server\\templates\\files.html";
+      a.href = "/files";
     }
-
-    //change the url when deploying
     a.id = i;
+
+    // Apply the necessary CSS styles to display a horizontal line
+    // let line = document.createElement("div");
+    // line.style.width = "100%";
+    // line.style.height = "1px";
+    // line.style.backgroundColor = "black";
+    // divElement.appendChild(line);
+
+    // Append the line to the container element
+    // let container = document.getElementById("container"); // Replace 'container' with the ID of your desired container
     divElement.appendChild(checkbox);
     divElement.appendChild(span);
     divElement.appendChild(a);
@@ -103,9 +112,9 @@ function writeMnames(res) {
 function video(path) {
   let video = document.createElement("VIDEO");
   if (video.canPlayType("video/mp4")) {
-    video.setAttribute("src", path);
+    video.setAttribute("src", "/play_video/" + path);
   } else {
-    video.setAttribute("src", path);
+    video.setAttribute("src", "/play_video/" + path);
   }
   video.setAttribute("width", "620");
   video.setAttribute("height", "640");

@@ -1,40 +1,4 @@
-function back() {
-  //debugger; //created a array to split the url and join it
-  let newArray = [];
-  let history = sessionStorage.getItem("history");
-  let myArray = history.split("\\");
-  myArray.pop();
-  newArray = myArray.join("\\");
-  sessionStorage.setItem("history", newArray); //creating the history again to use it again in any oyher case.
-  console.log(newArray);
-
-  $.ajax({
-    url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
-    type: "POST",
-    data: {
-      url: newArray,
-    },
-    dataType: "json",
-    success: function (res) {
-      // debugger;
-      // let len = history.split("\\");
-      var divElement = document.getElementById("folderContent");
-      let divnodelen = divElement.childNodes.length;
-      let i = 0;
-      while (i < divnodelen) {
-        divElement.removeChild(divElement.firstChild);
-        i++;
-      }
-      //getting data from server and creating elements for the data
-      writeMnames(res);
-    },
-    error: function (err) {
-      alert("unable to load please try again");
-      console.log(err);
-    },
-  });
-}
-
+// @ts-nocheck
 function createFolder() {
   let foo = prompt("Enter Folder Name");
 
@@ -115,6 +79,7 @@ function showDiv() {
 // } recent change
 
 var defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate";
+
 function del() {
   // debugger;
   //get the delete id from seesions which stored ussing delid func
@@ -196,22 +161,75 @@ function del() {
   }
 }
 
-function refresh() {
-  var history = sessionStorage.getItem("history");
-  if (history != null) {
-    ajax(history);
-  } else {
-    ajax(defUrl);
-  }
-  // 1)get the histurl and fetch all the files from server and use write func
-  // 2)if histurl doesnt have anything then use defurl to fetch the data and write
+function back() {
+  debugger; //created a array to split the url and join it
+  let newArray = [];
+  let history = sessionStorage.getItem("history");
+  let myArray = history.split("\\");
+  myArray.pop();
+  newArray = myArray.join("\\");
+  sessionStorage.setItem("history", newArray); //creating the history again to use it again in any oyher case.
+  // console.log(newArray);
+
+  $.ajax({
+    url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
+    type: "POST",
+    data: {
+      url: newArray,
+    },
+    dataType: "json",
+    success: function (res) {
+      debugger;
+      // let len = history.split("\\");
+      var divElement = document.getElementById("folderContent");
+      let divnodelen = divElement.childNodes.length;
+      let i = 0;
+      while (i < divnodelen) {
+        divElement.removeChild(divElement.firstChild);
+        i++;
+      }
+      //getting data from server and creating elements for the data
+      writeMnames(res);
+    },
+    error: function (err) {
+      alert("unable to load please try again");
+      console.log(err);
+    },
+  });
 }
 
 function forward() {
-  // 1) use histurl to fetch data from server and write
-  // let history = sessionStorage.getItem("history");
-
-  if (history != null) {
-    ajax(history);
+  // 1 use histurl to fetch data from server and write
+  clear();
+  let forwardBtn = sessionStorage.getItem("forwardBtn");
+  // sessionStorage.setItem("history", forwardBtn); //creating the history again for back btn.
+  if (forwardBtn != null) {
+    ajxFunc(forwardBtn);
   }
+}
+
+function refresh() {
+  clear();
+  var history = sessionStorage.getItem("history");
+  sessionStorage.removeItem("id");
+  sessionStorage.removeItem("delId");
+  // sessionStorage.removeItem("history");
+  // sessionStorage.removeItem("forwardBtn");
+  if (history != null) {
+    ajxFunc(history);
+  }
+}
+
+function home() {
+  clear();
+  sessionStorage.removeItem("id");
+  sessionStorage.removeItem("delId");
+  sessionStorage.removeItem("history");
+  sessionStorage.removeItem("forwardBtn");
+  ajxFunc(defUrl);
+}
+
+function clear() {
+  var divElement = document.getElementById("folderContent");
+  divElement.innerHTML = "";
 }

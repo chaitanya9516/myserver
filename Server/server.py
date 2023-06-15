@@ -1,5 +1,5 @@
 from flask_cors import CORS
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template, url_for, redirect, send_from_directory
 import os
 import json
 from werkzeug.utils import secure_filename
@@ -10,6 +10,42 @@ app.config['UPLOAD_PATH'] = folder_path
 # app.config['MAX_CONTENT_PATH'] = 1024
 app.config['MAX_CONTENT_LENGTH'] = 1024
 CORS(app)
+
+
+@app.after_request
+def add_headers(res):
+    res.headers["Cache-Control"] = 'no-cache, no-store, must-revalidate'
+    res.headers["Pragma"] = 'no-cache'
+    res.headers["Expires"] = '0'
+    return res
+
+
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template("home.html")
+
+
+@app.route('/dir2')
+def dir2():
+    return render_template("dir.html")
+
+
+@app.route('/vide0')
+def video():
+    return render_template('videoplayer.html')
+
+
+@app.route('/play_video/<file_name>')
+def play_video(file_name):
+    return send_from_directory(folder_path, file_name)
+
+
+@app.route('/files')
+def files():
+    return render_template('files.html')
+
+####################################################################
 
 
 @app.route("/mnamesloc", methods=["GET", "POST"])
@@ -24,9 +60,13 @@ def mnames():
         return jsonn
 
     else:
-        defLocation = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
-        # will get names with extensions
-        dirContentName = os.listdir(defLocation)
+        # belowe code is commented to test below code
+        # defLocation = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
+        # dirContentName = os.listdir(defLocation)
+
+        # check here!!!!!
+        # changed here if i get any error in grabbing the directory files
+        dirContentName = os.listdir(folder_path)
         jsonn = json.dumps(dirContentName)
         return jsonn
 
@@ -80,25 +120,9 @@ def createFolder():
         print('Error: Creating directory. ' + data)
         return "Failed To Create"
 
-# adding views to different views
-
-# @app.route('/dir')
-# def dir():
-#     return render_template('dir.html')
-
-
-# @app.route('/video')
-# def video():
-#     return render_template('videoplayer.html')
-
-
-# @app.route('/files')
-# def files():
-#     return render_template('files.html')
-
 
 # createFolder(f'./{data}/')  #fstring is used here
-# @app.route("/utubelink", methods=["POST"])
+# @app.route("/utube", methods=["POST"])
 # def url():
 #     try:
 #        aurl = request.data
@@ -111,12 +135,6 @@ def createFolder():
 #     except Exception as e:
 #         print(str(e))
 #         return "error"
-
-
-@app.route('/')
-def home():
-    return render_template("home.html")
-
 
 if __name__ == "__main__":
     app.run(debug=True)

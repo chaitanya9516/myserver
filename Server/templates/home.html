@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="static/css/upload.css" />
     <link rel="stylesheet" href="static/css/dir.css" />
     <!-- bootstrap css link -->
@@ -26,7 +32,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- //jquery & ajax -->
-    <script type="text/javascript" src="jquery-3.6.3.min.js"></script>
+    <script type="text/javascript" src="https://jquery-3.6.3.min.js"></script>
     <script
       type="text/javascript"
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -34,20 +40,20 @@
     <!-- Custom scripts -->
     <script
       type="text/javascript"
+      src="static/js/annonmusfunc.js"
+      defer
+    ></script>
+    <script
+      type="text/javascript"
       src="static/js/writegetnames.js"
       defer
     ></script>
     <script type="text/javascript" src="static/js/getid.js" defer></script>
     <script type="text/javascript" src="static/js/navfunc.js" defer></script>
-    <script
-      type="text/javascript"
-      src="static/js/annonmusfunc.js"
-      defer
-    ></script>
 
     <title>Welcome</title>
   </head>
-  <body onload="getNames()">
+  <body id="body" onload="getNames()">
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <button
@@ -69,7 +75,7 @@
                 >arrow_forward</span
               >
               <span class="material-icons" onclick="refresh()">refresh</span>
-              <span class="material-icons">home</span>
+              <span class="material-icons" onclick="home()">home</span>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto">

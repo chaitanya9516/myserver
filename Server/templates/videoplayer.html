@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="static/css/upload.css" />
+    <link rel="stylesheet" href="static/css/dir.css" />
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <!-- ajax -->
@@ -11,7 +20,6 @@
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
       defer
     ></script>
-    <link rel="stylesheet" href="upload.css" />
     <!-- google icons -->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -31,10 +39,18 @@
       crossorigin="anonymous"
     ></script>
     <!-- Custom scripts -->
-    <script src="scripts/writegetnames.js" defer></script>
-    <script src="scripts/annonmusfunc.js" defer></script>
-    <script type="text/javascript" src="scripts/getid.js" defer></script>
-    <script type="text/javascript" src="scripts/navfunc.js" defer></script>
+    <script
+      type="text/javascript"
+      src="static/js/annonmusfunc.js"
+      defer
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/writegetnames.js"
+      defer
+    ></script>
+    <script type="text/javascript" src="static/js/getid.js" defer></script>
+    <script type="text/javascript" src="static/js/navfunc.js" defer></script>
     <title>Video Player</title>
   </head>
   <body>
@@ -55,13 +71,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <span class="material-icons" onclick="back()">arrow_back</span>
-              <span class="material-icons" onclick="createFolder()"
-                >folder</span
-              >
-              <span class="material-icons" onclick="uploadFile()">upload</span>
-              <span class="material-icons" onclick="createFolder()"
-                >delete</span
-              >
+              <span class="material-icons" onclick="home()">home</span>
             </li>
           </ul>
         </div>

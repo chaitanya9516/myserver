@@ -1,5 +1,6 @@
 .navbar {
-  background-color: #24292f;
+  /* background-color: #24292f; */
+  background-color: #36454f;
   color: #fff;
   /* margin-right: 20px; */
 }
@@ -9,6 +10,9 @@
 }
 
 .material-icons {
+  /* custom cursor images by providing the URL of the image file: */
+  /* cursor: url('custom-cursor.png'), auto; */
+  cursor: pointer;
   font-size: 21px;
   margin: 3px;
 }
