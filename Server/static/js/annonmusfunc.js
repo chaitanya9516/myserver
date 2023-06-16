@@ -9,6 +9,7 @@ $(document).ready(function () {
   var result = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
   result += path.split(",")[id].trim();
   // sessionStorage.setItem("forwardBtn", result);
+
   // identifying what type of file is clicked and according to that creating or opening or playing the file.
 
   //Identifying media file

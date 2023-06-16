@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-function ajxFunc(urlData) {
+function ajxFunc(urlData, callback) {
   $.ajax({
     url: "http://127.0.0.1:5000/mnamesloc",
     type: "POST",
@@ -10,6 +10,10 @@ function ajxFunc(urlData) {
     },
     success: function (res) {
       // debugger;
+      if (typeof callback === "function") {
+        callback();
+      }
+
       writeMnames(res);
     },
     error: function (err) {
@@ -102,11 +106,6 @@ function writeMnames(res) {
     writeElements(res);
   }
 }
-
-//Removing line for the
-// function removeLine() {
-//   document.getElementById(i).style = "text-decoration:none";
-// }
 
 //This function is used to create the video player
 function video(path) {

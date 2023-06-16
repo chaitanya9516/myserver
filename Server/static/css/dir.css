@@ -12,13 +12,10 @@
 #folderContent {
   margin: 20px auto;
   max-width: 800px;
-  /* background-color: rgb(255 255 255); */
+  background-color: rgb(255 255 255);
   background-color: #36454f;
   color: #ffffff;
   padding: 10px;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center;  */
   margin-bottom: 10px;
   border-radius: 5px;
   box-shadow: 2px 2px rgba(35, 33, 33, 0.4);
@@ -26,3 +23,18 @@
   color: #030303;
   font-family: "Cinzel", serif;
 }
+
+/* #folderContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #36454f;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px rgba(35, 33, 33, 0.4);
+  font-size: 20px;
+  font-family: "Cinzel", serif;
+} */
