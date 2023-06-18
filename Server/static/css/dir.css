@@ -3,6 +3,7 @@
   padding: 0px;
   box-sizing: border-box;
 }
+
 /* #body { */
 /* background-color: #f6f8fa !important; */
 /* background-image: linear-gradient(#ffffff, #121415) !important; */
@@ -22,6 +23,10 @@
   font-size: 20px;
   color: #030303;
   font-family: "Cinzel", serif;
+}
+
+#headTag {
+  padding: 2px 2px;
 }
 
 /* #folderContent {

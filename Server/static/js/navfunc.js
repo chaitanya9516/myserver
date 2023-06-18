@@ -13,6 +13,82 @@
 //   }
 // });
 
+var defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate";
+
+function back() {
+  debugger; //created a array to split the url and join it
+  let newArray = [];
+  let history = sessionStorage.getItem("history");
+  let myArray = history.split("\\");
+  myArray.pop();
+  newArray = myArray.join("\\");
+  sessionStorage.setItem("history", newArray); //if i want to go back again then this history would be needed.
+  sessionStorage.setItem("forwardBtn", history); //latest change
+  sessionStorage.removeItem("id"); //latest change
+  sessionStorage.removeItem("delId"); //latest change
+
+  ajxFunc(newArray, clear);
+
+  // $.ajax({
+  //   url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
+  //   type: "POST",
+  //   data: {
+  //     url: newArray,
+  //   },
+  //   dataType: "json",
+  //   success: function (res) {
+  //     debugger;
+  //     clear();
+  //     // removing content from folder content div
+  //     // var divElement = document.getElementById("folderContent");
+  //     // let divnodelen = divElement.childNodes.length;
+  //     // let i = 0;
+  //     // while (i < divnodelen) {
+  //     //   divElement.removeChild(divElement.firstChild);
+  //     //   i++;
+  //     // }
+  //     //getting data from server and creating elements for the data
+  //     writeMnames(res);
+  //   },
+  //   error: function (err) {
+  //     alert("unable to load please try again");
+  //     console.log(err);
+  //   },
+  // });
+}
+
+function forward() {
+  let forwardBtn = sessionStorage.getItem("forwardBtn");
+  sessionStorage.setItem("history", forwardBtn);
+  if (forwardBtn != null) {
+    clear();
+    ajxFunc(forwardBtn);
+    sessionStorage.removeItem("forwardBtn");
+    // const spanElement = document.getElementsBy("nav-item");
+    // spanElement.remove();
+  }
+}
+
+function refresh() {
+  var history = sessionStorage.getItem("history");
+  if (history != null) {
+    sessionStorage.removeItem("delId");
+    sessionStorage.removeItem("id");
+    clear();
+    ajxFunc(history);
+  }
+}
+
+function home() {
+  clear();
+  sessionStorage.removeItem("id");
+  sessionStorage.removeItem("delId");
+  let history = sessionStorage.getItem("history");
+  sessionStorage.setItem("forwardBtn", history);
+  sessionStorage.setItem("history", defUrl);
+  ajxFunc(defUrl);
+}
+
 function createFolder() {
   let foo = prompt("Enter Folder Name");
 
@@ -61,8 +137,6 @@ function showDiv() {
     div = document.getElementById("uploaddiv2").style.display = "none";
   }
 }
-
-var defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate";
 
 function del() {
   // debugger;
@@ -143,80 +217,6 @@ function del() {
       )
       .catch((error) => console.log("ERROR:" + error));
   }
-}
-
-function back() {
-  debugger; //created a array to split the url and join it
-  let newArray = [];
-  let history = sessionStorage.getItem("history");
-  let myArray = history.split("\\");
-  myArray.pop();
-  newArray = myArray.join("\\");
-  sessionStorage.setItem("history", newArray); //if i want to go back again then this history would be needed.
-  sessionStorage.setItem("forwardBtn", history); //latest change
-  // sessionStorage.removeItem("id"); //latest change
-  // sessionStorage.removeItem("delId"); //latest change
-
-  ajxFunc(newArray, clear);
-
-  // $.ajax({
-  //   url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
-  //   type: "POST",
-  //   data: {
-  //     url: newArray,
-  //   },
-  //   dataType: "json",
-  //   success: function (res) {
-  //     debugger;
-  //     clear();
-  //     // removing content from folder content div
-  //     // var divElement = document.getElementById("folderContent");
-  //     // let divnodelen = divElement.childNodes.length;
-  //     // let i = 0;
-  //     // while (i < divnodelen) {
-  //     //   divElement.removeChild(divElement.firstChild);
-  //     //   i++;
-  //     // }
-  //     //getting data from server and creating elements for the data
-  //     writeMnames(res);
-  //   },
-  //   error: function (err) {
-  //     alert("unable to load please try again");
-  //     console.log(err);
-  //   },
-  // });
-}
-
-function forward() {
-  let forwardBtn = sessionStorage.getItem("forwardBtn");
-  sessionStorage.setItem("history", forwardBtn);
-  if (forwardBtn != null) {
-    clear();
-    ajxFunc(forwardBtn);
-    sessionStorage.removeItem("forwardBtn");
-    // const spanElement = document.getElementsBy("nav-item");
-    // spanElement.remove();
-  }
-}
-
-function refresh() {
-  var history = sessionStorage.getItem("history");
-  if (history != null) {
-    sessionStorage.removeItem("delId");
-    sessionStorage.removeItem("id");
-    clear();
-    ajxFunc(history);
-  }
-}
-
-function home() {
-  clear();
-  sessionStorage.removeItem("id");
-  sessionStorage.removeItem("delId");
-  let history = sessionStorage.getItem("history");
-  sessionStorage.setItem("forwardBtn", history);
-  sessionStorage.setItem("history", defUrl);
-  ajxFunc(defUrl);
 }
 
 function clear() {

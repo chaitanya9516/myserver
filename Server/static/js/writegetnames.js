@@ -29,13 +29,27 @@ function getNames(url) {
   if (url != null) {
     ajxFunc(url);
   } else {
-    ajxFunc("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
+    // ajxFunc("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
+    ajxFunc(defUrl);
   }
 }
 
 function writeElements(data) {
   // debugger;
   var divElement = document.getElementById("folderContent");
+
+  let path = sessionStorage.getItem("history");
+  if (path === null) {
+    let headTag = document.createElement("h2");
+    headTag.innerText = defUrl;
+    headTag.style.color = "#ffffff";
+    divElement.appendChild(headTag);
+  } else {
+    let headTag = document.createElement("h2");
+    headTag.innerText = path;
+    headTag.style.color = "#ffffff";
+    divElement.appendChild(headTag);
+  }
 
   for (let i = 0; i < data.length; i++) {
     var checkbox = document.createElement("INPUT");

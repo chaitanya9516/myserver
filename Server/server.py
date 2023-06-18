@@ -1,8 +1,8 @@
-from flask_cors import CORS
 from flask import Flask, request, render_template, url_for, redirect, send_from_directory
-import os
-import json
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
+import json
+import os
 
 folder_path = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
 app = Flask(__name__)
@@ -55,17 +55,10 @@ def mnames():
         jsondata = request.form.get('url')
         data = jsondata
         dirContentName = os.listdir(data)  # get names with extensions
-        # print(dirContentName)
         jsonn = json.dumps(dirContentName)
         return jsonn
 
     else:
-        # belowe code is commented to test below code
-        # defLocation = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
-        # dirContentName = os.listdir(defLocation)
-
-        # check here!!!!!
-        # changed here if i get any error in grabbing the directory files
         dirContentName = os.listdir(folder_path)
         jsonn = json.dumps(dirContentName)
         return jsonn
@@ -106,7 +99,6 @@ def delete():
 @app.route("/createFolder", methods=["GET", "POST"])
 def createFolder():
     data = request.get_data()
-
     # decode method is used to convert byte to str
     folderName = data.decode()
 
