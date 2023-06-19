@@ -6,12 +6,11 @@ $(document).ready(function () {
   //identifying what item is clicked and grabbing the url of that item from session storage.
   var path = sessionStorage.getItem("source");
   var id = sessionStorage.getItem("id");
-  var result = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
+  // var result = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
+  var result = defUrl + "\\";
   result += path.split(",")[id].trim();
-  // sessionStorage.setItem("forwardBtn", result);
 
   // identifying what type of file is clicked and according to that creating or opening or playing the file.
-
   //Identifying media file
   let vid = result.includes(
     ".mp4",

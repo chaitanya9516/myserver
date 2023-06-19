@@ -16,7 +16,7 @@
 var defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate";
 
 function back() {
-  debugger; //created a array to split the url and join it
+  // debugger; //created a array to split the url and join it
   let newArray = [];
   let history = sessionStorage.getItem("history");
   let myArray = history.split("\\");
@@ -28,6 +28,17 @@ function back() {
   sessionStorage.removeItem("delId"); //latest change
 
   ajxFunc(newArray, clear);
+  //creating forward arrow in nav
+
+  const navElement = document.getElementById("nav");
+  const childElements = navElement.children.length;
+  if (childElements == 3) {
+    let span = document.createElement("span");
+    span.setAttribute("class", "material-icons");
+    span.setAttribute("onclick", "forward()");
+    span.innerText = "arrow_forward";
+    navElement.appendChild(span); //arrow_forward
+  }
 
   // $.ajax({
   //   url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
@@ -59,13 +70,20 @@ function back() {
 
 function forward() {
   let forwardBtn = sessionStorage.getItem("forwardBtn");
-  sessionStorage.setItem("history", forwardBtn);
   if (forwardBtn != null) {
+    sessionStorage.setItem("history", forwardBtn);
     clear();
     ajxFunc(forwardBtn);
     sessionStorage.removeItem("forwardBtn");
-    // const spanElement = document.getElementsBy("nav-item");
-    // spanElement.remove();
+
+    //newly added code on saturday to remove arrow forward icon
+    const navElement = document.getElementById("nav");
+    const childElements = navElement.childNodes;
+    childElements.forEach((childElement) => {
+      if (childElement.innerText === "arrow_forward") {
+        childElement.remove();
+      }
+    });
   }
 }
 

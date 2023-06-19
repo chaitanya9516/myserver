@@ -34,14 +34,3 @@ function delId(btn) {
     sessionStorage.removeItem("delId");
   }
 }
-
-function title() {
-  debugger;
-  let headTag = document.getElementById("headTag").innerText;
-  let path = sessionStorage.getItem("history");
-  if (path === null) {
-    headTag = defUrl;
-  } else {
-    headTag = path;
-  }
-}

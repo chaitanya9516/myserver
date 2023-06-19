@@ -38,6 +38,7 @@ function writeElements(data) {
   // debugger;
   var divElement = document.getElementById("folderContent");
 
+  //Adding path as heading in folder content
   let path = sessionStorage.getItem("history");
   if (path === null) {
     let headTag = document.createElement("h2");

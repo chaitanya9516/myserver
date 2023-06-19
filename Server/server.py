@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for, redirect, send_from_directory
+from flask import Flask, request, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import json
