@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Command Line Interface</title>
+    <link rel="stylesheet" type="text/css" href="static/css/cmd.css" />
+    <!-- <link rel="icon" href="{{ url_for('favicon') }}" type="image/x-icon" /> -->
+    <link rel="icon" href="{{ url_for('favicon') }}" type="image/png" />
+    <!-- jquery & ajax -->
+    <script type="text/javascript" src="https://jquery-3.6.3.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ></script>
+  </head>
+  <body>
+    <div id="cli">
+      <pre id="heading"></pre>
+      <pre id="pwd"></pre>
+      <input type="text" id="input" autofocus />
+      <!-- <pre id="preinput"></pre> -->
+      <!-- <pre id="output"></pre> -->
+    </div>
+
+    <script src="static/js/reqwrite.js"></script>
+    <script src="static/js/cmd.js"></script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 
 function ajxFunc(urlData, callback) {
   $.ajax({
@@ -13,7 +13,6 @@ function ajxFunc(urlData, callback) {
       if (typeof callback === "function") {
         callback();
       }
-
       writeMnames(res);
     },
     error: function (err) {
@@ -23,39 +22,77 @@ function ajxFunc(urlData, callback) {
   });
 }
 
-//communicate with the server and fetching list of dir or files in the path and store them in the session storage.
+//communicates with the server and fetch the data which is in the directory.
 function getNames(url) {
   // debugger;
   if (url != null) {
     ajxFunc(url);
+    // ajxFunc(url, "func1");
   } else {
     // ajxFunc("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
     ajxFunc(defUrl);
+    // ajxFunc(defUrl, "func1");
   }
 }
 
 function writeElements(data) {
-  // debugger;
+  var headerElement = document.getElementById("header");
   var divElement = document.getElementById("folderContent");
-
   //Adding path as heading in folder content
   let path = sessionStorage.getItem("history");
   if (path === null) {
-    let headTag = document.createElement("h2");
-    headTag.innerText = defUrl;
-    headTag.style.color = "#ffffff";
-    divElement.appendChild(headTag);
+    // var headTag = document.createElement("h2");
+    // headTag.innerText = defUrl;
+    // headTag.style.color = "#ffffff";
+    // divElement.appendChild(headTag);
+
+    //newly added
+    let defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
+    let splitPath = defUrl.split("\\");
+    for (let i = 0; i < splitPath.length; i++) {
+      let span = document.createElement("span");
+      span.setAttribute("id", "pathSpan");
+      span.setAttribute("class", "material-icons");
+      span.innerText = "folder";
+      headerElement.appendChild(span);
+      let pTag = document.createElement("p");
+      pTag.setAttribute("id", "pTag" + splitPath[i]);
+      pTag.innerText = splitPath[i] + " " + ">";
+      // headTag.style.color = "#ffffff";
+      pTag.style.color = "black";
+      headerElement.appendChild(pTag);
+    }
+    //#############################################
   } else {
-    let headTag = document.createElement("h2");
-    headTag.innerText = path;
-    headTag.style.color = "#ffffff";
-    divElement.appendChild(headTag);
+    //let headTag = document.createElement("h2");
+    // headTag.innerText = path;
+    // headTag.style.color = "#ffffff";
+    // divElement.appendChild(headTag);
+
+    //newly added
+    let splitPath = path.split("\\");
+    for (let i = 0; i < splitPath.length; i++) {
+      let span = document.createElement("span");
+      span.setAttribute("id", "pathSpan" + splitPath[i]);
+      span.setAttribute("class", "material-icons");
+      span.innerText = "folder";
+      headerElement.appendChild(span);
+
+      let pTag = document.createElement("p");
+      pTag.setAttribute("id", "pTag");
+      pTag.innerText = splitPath[i] + " " + ">";
+      // headTag.style.color = "#ffffff";
+      pTag.style.color = "black";
+      headerElement.appendChild(pTag);
+    }
+    //#############################################
   }
 
   for (let i = 0; i < data.length; i++) {
     var checkbox = document.createElement("INPUT");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("onclick", "delId(this)");
+    checkbox.setAttribute("margin", "3px");
     checkbox.id = i;
     let span = document.createElement("span");
     span.setAttribute("class", "material-icons");
@@ -81,8 +118,9 @@ function writeElements(data) {
     a.setAttribute("onclick", "getId(this)");
     a.style = "text-decoration:none";
     a.style.font = "bold 22px Cinzel,sans-serif";
-    // a.style.color = "rgb(23 23 23)";
-    a.style.color = "#ffffff";
+    a.setAttribute("margin", "3px");
+    // a.style.color = "#ffffff";
+    a.style.color = "black";
     var linkText = document.createTextNode(data[i]);
     a.appendChild(linkText);
     a.title = data[i];
@@ -94,13 +132,6 @@ function writeElements(data) {
       a.href = "/files";
     }
     a.id = i;
-
-    // Apply the necessary CSS styles to display a horizontal line
-    // let line = document.createElement("div");
-    // line.style.width = "100%";
-    // line.style.height = "1px";
-    // line.style.backgroundColor = "black";
-    // divElement.appendChild(line);
 
     // Append the line to the container element
     // let container = document.getElementById("container"); // Replace 'container' with the ID of your desired container

@@ -4,42 +4,110 @@
   box-sizing: border-box;
 }
 
-/* #body { */
-/* background-color: #f6f8fa !important; */
-/* background-image: linear-gradient(#ffffff, #121415) !important; */
-/* font-family: "Helvetica Neue", Arial, sans-serif; */
-/* } */
+body {
+  width: 100vw;
+  height: 100vh;
+  /* box-sizing: border-box; */
+  /* background-color: rgb(230, 227, 222); */
+}
 
 #folderContent {
   margin: 20px auto;
   max-width: 800px;
-  background-color: rgb(255 255 255);
-  background-color: #36454f;
-  color: #ffffff;
+  /* background-color: #36454f; */
+  background-color: #7b919f;
   padding: 10px;
   margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 2px 2px rgba(35, 33, 33, 0.4);
-  font-size: 20px;
-  color: #030303;
-  font-family: "Cinzel", serif;
 }
 
 #headTag {
   padding: 2px 2px;
 }
 
-/* #folderContent {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  background-color: #36454f;
-  color: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 2px 2px rgba(35, 33, 33, 0.4);
-  font-size: 20px;
-  font-family: "Cinzel", serif;
-} */
+#nav {
+  display: inline-block;
+  position: relative;
+}
+
+span:hover {
+  box-shadow: 0 0 10px #49687d;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #49687d, 0 0 20px 5px #49687d;
+}
+
+span:hover:before {
+  filter: brightness(150%);
+  animation: glowing-effect 1s infinite;
+}
+
+@keyframes glowing-effect {
+  0% {
+    box-shadow: 0 0 5px #36454f;
+  }
+  50% {
+    box-shadow: 0 0 10px #36454f;
+  }
+  100% {
+    box-shadow: 0 0 5px #36454f;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header p {
+  text-align: center;
+  font-size: 14px; /*Default size for non-mobile */
+  /* margin: 3px; */
+}
+
+p {
+  display: inline-block !important;
+  border: 0px !important;
+  margin-block-start: 0px !important;
+  margin-block-end: 0px !important;
+}
+
+/* for mobile */
+@media (max-width: 767px) {
+  /* Media query for mobile devices (screen width up to 767px) */
+  .header p {
+    font-size: 16px; /* Decreased size for mobile */
+  }
+}
+
+input[type="checkbox"] {
+  /* 
+  -webkit-appearance-box-shadow: none;
+  -o-appearance-box-shadow: none; */
+  outline: none;
+  content: none;
+  width: 14px;
+  height: 14px;
+  background: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  position: relative;
+  left: -5px;
+  top: -5px;
+  cursor: pointer;
+  /* accent-color: black; */
+}
+
+input[type="checkbox"]:checked {
+  background-color: #000;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "\2713"; /* Unicode character for checkmark */
+  display: block;
+  color: #fff;
+  text-align: center;
+  line-height: 16px;
+  font-size: 12px;
+}

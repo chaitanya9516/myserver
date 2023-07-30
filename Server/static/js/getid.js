@@ -6,31 +6,37 @@ function getId(btn) {
 }
 
 // storing id to help the del function to delete the files
-var id = [];
 function delId(btn) {
-  // setting the first id
+  let id = [];
+  let historyId = JSON.parse(sessionStorage.getItem("delId"));
   if (btn.checked) {
-    let historyId = JSON.parse(sessionStorage.getItem("delId"));
-    var presentId = btn.id;
+    let presentId = btn.id;
     if (historyId == null) {
-      sessionStorage.setItem("delId", presentId);
+      sessionStorage.setItem("delId", JSON.stringify(presentId));
     } else {
-      var pastId = JSON.parse(sessionStorage.getItem("delId"));
-      // below if is checking there is one item in array or not
-      if (Object.keys(pastId).length == 0) {
+      // below if statement is checking there is one or more ID's in the array or not?
+      if (Object.keys(historyId).length == 0) {
         sessionStorage.removeItem("delId");
-        id.push(pastId, presentId);
-        console.log("pushing data into id array:" + id);
+        id.push(historyId, presentId);
         sessionStorage.setItem("delId", JSON.stringify(id));
       } else {
         sessionStorage.removeItem("delId");
         id = [];
-        id.push(...pastId);
+        id.push(...historyId);
         id.push(presentId);
         sessionStorage.setItem("delId", JSON.stringify(id));
       }
     }
   } else {
-    sessionStorage.removeItem("delId");
+    var uncheckId = btn.id;
+    //checking one or more id's in the delId session
+    if (historyId.length > 1) {
+      const filtereddelID = historyId.filter((item) => item !== uncheckId);
+      sessionStorage.removeItem("delId");
+      //Below stringify is converting the string into json.
+      sessionStorage.setItem("delId", JSON.stringify(filtereddelID));
+    } else {
+      sessionStorage.removeItem("delId");
+    }
   }
 }

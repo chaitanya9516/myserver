@@ -1,0 +1,52 @@
+body {
+  font-family: monospace;
+  margin: 0;
+  overflow: hidden;
+}
+
+#cli {
+  background-color: black;
+  color: rgb(19, 161, 14);
+  height: 100vh;
+  padding: 10px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scroll-behavior: smooth;
+}
+
+#cli::-webkit-scrollbar {
+  width: 8px;
+}
+
+#cli::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#cli::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+#output {
+  margin: 0;
+}
+
+#pwd {
+  display: contents;
+}
+
+#preinput {
+  display: contents;
+}
+
+#input {
+  flex: 2;
+  width: auto;
+  background-color: transparent;
+  border: none;
+  color: rgb(19, 161, 14);
+  padding: 0;
+  margin: 0;
+  outline: none;
+  display: inline-block;
+}

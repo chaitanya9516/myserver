@@ -10,6 +10,8 @@
     />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
+    <link rel="icon" href="{{ url_for('favicon') }}" type="image/png" />
+
     <!-- Custom css link -->
     <link rel="stylesheet" href="static/css/upload.css" />
     <link rel="stylesheet" href="static/css/dir.css" />
@@ -44,11 +46,7 @@
       src="static/js/annonmusfunc.js"
       defer
     ></script>
-    <script
-      type="text/javascript"
-      src="static/js/writegetnames.js"
-      defer
-    ></script>
+    <script type="text/javascript" src="static/js/reqwrite.js" defer></script>
     <script type="text/javascript" src="static/js/getid.js" defer></script>
     <script type="text/javascript" src="static/js/navfunc.js" defer></script>
     <title>Welcome</title>
@@ -70,27 +68,39 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li id="nav" class="nav-item">
-              <span class="material-icons" onclick="back()">arrow_back</span>
-              <!-- <span class="material-icons" onclick="forward()"
-                >arrow_forward</span
-              > -->
-              <span class="material-icons" onclick="refresh()">refresh</span>
-              <span class="material-icons" onclick="home()">home</span>
+              <span style="color: black" class="material-icons" onclick="back()"
+                >arrow_back</span
+              >
+              <span
+                style="color: black"
+                class="material-icons"
+                onclick="refresh()"
+                >refresh</span
+              >
+              <span style="color: black" class="material-icons" onclick="home()"
+                >home</span
+              >
             </li>
           </ul>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <span
+                style="color: black"
                 class="material-icons"
                 onclick="createFolder()"
                 data-toggle="modal"
                 data-target="#exampleModal"
                 >folder</span
               >
-              <span class="material-icons" onclick="uploadFile()"
+              <span
+                style="color: black"
+                class="material-icons"
+                onclick="uploadFile()"
                 >upload_file</span
               >
-              <span class="material-icons" onclick="del()">delete</span>
+              <span style="color: black" class="material-icons" onclick="del()"
+                >delete</span
+              >
             </li>
           </ul>
         </div>
@@ -108,6 +118,8 @@
         </form>
       </div>
     </div>
-    <div id="folderContent"></div>
+    <div id="folderContent">
+      <div id="header" class="header"></div>
+    </div>
   </body>
 </html>

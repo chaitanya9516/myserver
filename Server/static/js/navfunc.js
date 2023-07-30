@@ -39,33 +39,6 @@ function back() {
     span.innerText = "arrow_forward";
     navElement.appendChild(span); //arrow_forward
   }
-
-  // $.ajax({
-  //   url: "http://127.0.0.1:5000/mnamesloc", //change cheyali
-  //   type: "POST",
-  //   data: {
-  //     url: newArray,
-  //   },
-  //   dataType: "json",
-  //   success: function (res) {
-  //     debugger;
-  //     clear();
-  //     // removing content from folder content div
-  //     // var divElement = document.getElementById("folderContent");
-  //     // let divnodelen = divElement.childNodes.length;
-  //     // let i = 0;
-  //     // while (i < divnodelen) {
-  //     //   divElement.removeChild(divElement.firstChild);
-  //     //   i++;
-  //     // }
-  //     //getting data from server and creating elements for the data
-  //     writeMnames(res);
-  //   },
-  //   error: function (err) {
-  //     alert("unable to load please try again");
-  //     console.log(err);
-  //   },
-  // });
 }
 
 function forward() {
@@ -94,6 +67,9 @@ function refresh() {
     sessionStorage.removeItem("id");
     clear();
     ajxFunc(history);
+  } else {
+    clear();
+    ajxFunc(defUrl);
   }
 }
 
@@ -108,26 +84,54 @@ function home() {
 }
 
 function createFolder() {
-  let foo = prompt("Enter Folder Name");
-
-  if (foo != null) {
-    $.ajax({
-      url: "http://127.0.0.1:5000/createFolder",
-      type: "POST",
-      dataType: "json",
-      data: foo,
-      success: function (res) {
-        if (res.msg == "success") {
-          writeMnames(res);
-          // debugger;
-          alert("Folder created");
-        }
-      },
-      error: function (err) {
-        alert("Unable to create the folder:" + err);
-      },
-    });
+  debugger;
+  let folName = prompt("Enter Folder Name");
+  if (folName != null) {
+    //If session history has any data, then we clicked on folder or directory. if not we are on first folder or at defURl.
+    let folLoc = sessionStorage.getItem("history");
+    if (folLoc != null) {
+      let folPath = folLoc + "\\" + folName;
+      $.ajax({
+        url: "http://127.0.0.1:5000/createFolder",
+        type: "POST",
+        dataType: "json",
+        data: folPath,
+        success: function (res) {
+          if (res.msg == "success") {
+            // debugger;
+            // clear();
+            // writeMnames(res);
+            refresh();
+            alert("Folder created");
+          }
+        },
+        error: function (err) {
+          alert("Unable to create the folder:" + err);
+        },
+      });
+    } else {
+      let folPath = defUrl + "\\" + folName;
+      $.ajax({
+        url: "http://127.0.0.1:5000/createFolder",
+        type: "POST",
+        dataType: "json",
+        data: folPath,
+        success: function (res) {
+          if (res.msg == "success") {
+            // debugger;
+            // clear();
+            // writeMnames(res);
+            refresh();
+            alert("Folder created");
+          }
+        },
+        error: function (err) {
+          alert("Unable to create the folder:" + err);
+        },
+      });
+    }
   } else {
+    alert("Please enter folder name");
   }
 }
 
@@ -158,10 +162,12 @@ function showDiv() {
 
 function del() {
   // debugger;
-  //get the delete id from seesions which stored ussing delid func
+  //get the delete id from seesions which stored is using delid func
   var id = JSON.parse(sessionStorage.getItem("delId"));
+  // the above id variable has one id or array of id(multiple items for deleting) to validate one or more items if statement is used
   if (Array.isArray(id)) {
-    let histUrl = sessionStorage.getItem("history"); //if it is the first directory then it will be null.
+    let histUrl = sessionStorage.getItem("history");
+    //if histUrl variable is null then it is first folder or directory. so, nothing is stored in then histUrl variable.
     if (histUrl == null) {
       let delList = [];
       for (let i = 0; i < id.length; i++) {
@@ -185,16 +191,20 @@ function del() {
           }
         })
         .then(
-          (data) =>
-            data.status == 200 ? alert("Deleted") : alert("Not Deleted")
-          //have run reload function after deleting the file to refresh the page
+          (data) => {
+            if (data.status == 200) {
+              refresh();
+              alert("Deleted");
+              // data.status == 200 ? alert("Deleted") : alert("Not Deleted")
+            }
+          }
+          // run reload function after deleting the file to refresh the page
         )
         .catch((error) => console.log("ERROR:" + error));
     } else {
       let path = sessionStorage.getItem("source");
       path.split(",")[id].trim();
       histUrl += "//" + path;
-      // console.log(histUrl);
       fetch("http://127.0.0.1:5000/delete", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -203,7 +213,6 @@ function del() {
         .then((res) => {
           if (res.ok) {
             console.log("SUCCESSFUL FETCH");
-            // res.json();
             return res;
           } else {
             console.log("UNSUCCESSFUL FETCH");
@@ -230,14 +239,24 @@ function del() {
         }
       })
       .then(
-        (data) => (data.status == 200 ? alert("Deleted") : alert("Not Deleted"))
-        //have run reload function after deleting the file to refresh the page
+        (data) => {
+          if (data.status == 200) {
+            refresh();
+            alert("Deleted");
+            // data.status == 200 ? alert("Deleted") : alert("Not Deleted")
+          }
+        }
+        // run reload function after deleting the file to refresh the page
       )
       .catch((error) => console.log("ERROR:" + error));
   }
 }
 
 function clear() {
-  var divElement = document.getElementById("folderContent");
+  let divElement = document.getElementById("folderContent");
   divElement.innerHTML = "";
+  let headerDiv = document.createElement("div");
+  headerDiv.setAttribute("id", "header");
+  headerDiv.setAttribute("class", "header");
+  divElement.appendChild(headerDiv);
 }

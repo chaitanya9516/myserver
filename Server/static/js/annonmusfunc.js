@@ -6,8 +6,8 @@ $(document).ready(function () {
   //identifying what item is clicked and grabbing the url of that item from session storage.
   var path = sessionStorage.getItem("source");
   var id = sessionStorage.getItem("id");
-  // var result = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
-  var result = defUrl + "\\";
+  var result = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
+  // var result = defUrl + "\\";
   result += path.split(",")[id].trim();
 
   // identifying what type of file is clicked and according to that creating or opening or playing the file.
@@ -48,7 +48,6 @@ $(document).ready(function () {
       let latestUrl = sessionStorage.getItem("history"); // Fetching past url from session storage.
       let newLink = latestUrl + "\\" + path.split(",")[id].trim(); // Adding slashes with present url and past url.
       sessionStorage.setItem("history", newLink); //Storing present url in session to fetch as past url if necessary.
-
       getNames(newLink);
     }
   }

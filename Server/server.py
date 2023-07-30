@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import json
+import subprocess
 import os
 
 folder_path = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
@@ -9,7 +10,13 @@ app = Flask(__name__)
 app.config['UPLOAD_PATH'] = folder_path
 # app.config['MAX_CONTENT_PATH'] = 1024
 app.config['MAX_CONTENT_LENGTH'] = 1024
-CORS(app)
+CORS(app, origins="*")
+
+
+@app.route('/favicon.png')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.png', mimetype='image/png')
 
 
 @app.after_request
@@ -45,7 +52,12 @@ def play_video(file_name):
 def files():
     return render_template('files.html')
 
-####################################################################
+
+@app.route('/cmd')
+def cmd():
+    return render_template('cmd.html')
+
+#######################################################################
 
 
 @app.route("/mnamesloc", methods=["GET", "POST"])
@@ -82,15 +94,25 @@ def delete():
     try:
         if request.method == 'POST':
             f = request.get_json()
-            print(type(f))
+            # print(type(f))
+            delType = type(f)
             length = len(f)
-            print(length)
-        for i in range(length):
-            if f[i] != ".":
-                os.rmdir(f[i])
+            # print(length)
+
+            if (delType == list):
+                for i in range(length):
+                    if f[i] != ".":
+                        os.rmdir(f[i])
+                    else:
+                        os.remove(f[i])
+                return 'file deleted successfully'
             else:
-                os.remove(f[i])
-        return 'file deleted successfully'
+                if "." not in f:
+                    os.rmdir(f)
+
+                else:
+                    os.remove(f)
+            return 'file deleted successfully'
 
     except Exception as e:
         print(str(e))
@@ -98,14 +120,12 @@ def delete():
 
 @app.route("/createFolder", methods=["GET", "POST"])
 def createFolder():
-    data = request.get_data()
-    # decode method is used to convert byte to str
-    folderName = data.decode()
-
     try:
-        if not os.path.exists(folderName):
-            os.makedirs(
-                'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\' + folderName)
+        if request.method == 'POST':
+            data = request.get_data()
+            # decode method is used to convert byte to str
+            folderName = data.decode()
+            os.makedirs(folderName)
             return "{\"msg\":\"success\"}"
 
     except OSError:
@@ -113,12 +133,34 @@ def createFolder():
         return "Failed To Create"
 
 
+@app.route("/cmdProc", methods=["GET", "POST"])
+def cmdProcess():
+    try:
+        if request.method == "POST":
+            data = request.get_json()
+            received_data = data['data']
+            cmdOp = subprocess.run(
+                received_data, shell=True, capture_output=True)
+            if cmdOp.returncode == 0:
+                # Command executed successfully
+                output = cmdOp.stdout
+                return output
+            else:
+                # An error occurred
+                error = cmdOp.stderr
+                return error
+
+    except Exception as e:
+        print(str(e))
+        return "server error" + e
+
+
 # createFolder(f'./{data}/')  #fstring is used here
 # @app.route("/utube", methods=["POST"])
 # def url():
 #     try:
 #        aurl = request.data
-#        a#print(type(con))
+#        #print(type(con))
 #        ayt = YouTube(url.decode("utf-8"))
 #        astream = yt.streams.get_highest_resolution()
 #        stream.download()
@@ -128,5 +170,6 @@ def createFolder():
 #         print(str(e))
 #         return "error"
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5000, debug=True)
