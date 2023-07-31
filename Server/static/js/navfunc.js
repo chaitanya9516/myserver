@@ -84,7 +84,7 @@ function home() {
 }
 
 function createFolder() {
-  debugger;
+  // debugger;
   let folName = prompt("Enter Folder Name");
   if (folName != null) {
     //If session history has any data, then we clicked on folder or directory. if not we are on first folder or at defURl.
@@ -161,17 +161,21 @@ function showDiv() {
 }
 
 function del() {
-  // debugger;
+  debugger;
   //get the delete id from seesions which stored is using delid func
-  var id = JSON.parse(sessionStorage.getItem("delId"));
-  // the above id variable has one id or array of id(multiple items for deleting) to validate one or more items if statement is used
-  if (Array.isArray(id)) {
-    let histUrl = sessionStorage.getItem("history");
-    //if histUrl variable is null then it is first folder or directory. so, nothing is stored in then histUrl variable.
+  // var id = JSON.parse(sessionStorage.getItem("delId"));
+  let id = JSON.parse(sessionStorage.getItem("delId"));
+  let path = sessionStorage.getItem("source");
+  let histUrl = sessionStorage.getItem("history");
+  let delList = [];
+
+  // checking the id variable is a string or array
+  if (typeof id === "object") {
+    //if histUrl variable is null then it is first folder or directory opened. so, nothing is stored in then histUrl variable.
     if (histUrl == null) {
-      let delList = [];
+      // let delList = [];
       for (let i = 0; i < id.length; i++) {
-        let path = sessionStorage.getItem("source");
+        // let path = sessionStorage.getItem("source");
         let filepath = path.split(",")[id[i]].trim();
         let delUrl = defUrl + "\\" + filepath;
         delList.push(delUrl);
@@ -195,20 +199,21 @@ function del() {
             if (data.status == 200) {
               refresh();
               alert("Deleted");
-              // data.status == 200 ? alert("Deleted") : alert("Not Deleted")
             }
           }
           // run reload function after deleting the file to refresh the page
         )
         .catch((error) => console.log("ERROR:" + error));
     } else {
-      let path = sessionStorage.getItem("source");
-      path.split(",")[id].trim();
-      histUrl += "//" + path;
+      for (let i = 0; i < id.length; i++) {
+        let filepath = path.split(",")[id[i]].trim();
+        let delUrl = histUrl + "\\" + filepath;
+        delList.push(delUrl);
+      }
       fetch("http://127.0.0.1:5000/delete", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify(histUrl),
+        body: JSON.stringify(delList),
       })
         .then((res) => {
           if (res.ok) {
@@ -218,13 +223,18 @@ function del() {
             console.log("UNSUCCESSFUL FETCH");
           }
         })
-        .then((data) => alert(data))
+        .then((res) => {
+          if (res.status === 200) {
+            refresh();
+            alert("Item Deleted");
+          }
+        })
         .catch((error) => console.log("ERROR:" + error));
     }
   } else {
-    let path = sessionStorage.getItem("source");
+    // This else statement is used "for single item deletion"
     let delFile = path.split(",")[id].trim();
-    let delUrl = (defUrl += "\\" + delFile);
+    let delUrl = (histUrl += "\\" + delFile);
     fetch("http://127.0.0.1:5000/delete", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -238,16 +248,12 @@ function del() {
           console.log("UNSUCCESSFUL FETCH FUNC");
         }
       })
-      .then(
-        (data) => {
-          if (data.status == 200) {
-            refresh();
-            alert("Deleted");
-            // data.status == 200 ? alert("Deleted") : alert("Not Deleted")
-          }
+      .then((data) => {
+        if (data.status == 200) {
+          refresh();
+          alert("Item Deleted");
         }
-        // run reload function after deleting the file to refresh the page
-      )
+      })
       .catch((error) => console.log("ERROR:" + error));
   }
 }

@@ -94,25 +94,26 @@ def delete():
     try:
         if request.method == 'POST':
             f = request.get_json()
-            # print(type(f))
             delType = type(f)
             length = len(f)
-            # print(length)
-
             if (delType == list):
                 for i in range(length):
                     if f[i] != ".":
                         os.rmdir(f[i])
+
                     else:
                         os.remove(f[i])
-                return 'file deleted successfully'
+
+                return "{\"msg\":\"successfully deleted folder\"}"
+
             else:
                 if "." not in f:
                     os.rmdir(f)
 
                 else:
                     os.remove(f)
-            return 'file deleted successfully'
+
+                return "{\"msg\":\"successfully deleted folder\"}"
 
     except Exception as e:
         print(str(e))
