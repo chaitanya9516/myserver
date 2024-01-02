@@ -1,12 +1,3 @@
-.navbar {
-  /* background-color: #36454f; */
-  background-color: #7b919f;
-}
-
-.navbar-nav .nav-item .nav-link {
-  margin-right: 10px; /* Increase this value to adjust the space between icons */
-}
-
 .material-icons {
   /* custom cursor images by providing the URL of the image file: */
   /* cursor: url('custom-cursor.png'), auto; */

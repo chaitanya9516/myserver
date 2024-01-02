@@ -1,18 +1,5 @@
 // @ts-nocheck
 
-// $(document).ready(function () {
-//   let frwdId = sessionStorage.getItem("frwdId");
-//   let forwardBtn = sessionStorage.getItem("forwardBtn");
-
-//   if (forwardBtn == frwdId) {
-//     sessionStorage.removeItem("frwdId");
-//     sessionStorage.removeItem("forwardBtn");
-//     // document.getElementById("arrow_forward").remove();
-//     const spanElement = document.getElementById("arrow_forward");
-//     spanElement.remove();
-//   }
-// });
-
 var defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate";
 
 function back() {
@@ -63,10 +50,15 @@ function forward() {
 function refresh() {
   var history = sessionStorage.getItem("history");
   if (history != null) {
-    sessionStorage.removeItem("delId");
-    sessionStorage.removeItem("id");
-    clear();
-    ajxFunc(history);
+    if (!history.includes(".")) {
+      // The above if statement verify's whether it is a directory or not & try to handle this situtation in a different way
+      sessionStorage.removeItem("delId");
+      sessionStorage.removeItem("id");
+      clear();
+      ajxFunc(history);
+    } else {
+      alert("Can't reload files");
+    }
   } else {
     clear();
     ajxFunc(defUrl);
@@ -77,8 +69,8 @@ function home() {
   clear();
   sessionStorage.removeItem("id");
   sessionStorage.removeItem("delId");
-  let history = sessionStorage.getItem("history");
-  sessionStorage.setItem("forwardBtn", history);
+  // let history = sessionStorage.getItem("history");
+  // sessionStorage.setItem("forwardBtn", history);
   sessionStorage.setItem("history", defUrl);
   ajxFunc(defUrl);
 }
@@ -161,9 +153,8 @@ function showDiv() {
 }
 
 function del() {
-  debugger;
+  // debugger;
   //get the delete id from seesions which stored is using delid func
-  // var id = JSON.parse(sessionStorage.getItem("delId"));
   let id = JSON.parse(sessionStorage.getItem("delId"));
   let path = sessionStorage.getItem("source");
   let histUrl = sessionStorage.getItem("history");
@@ -172,8 +163,7 @@ function del() {
   // checking the id variable is a string or array
   if (typeof id === "object") {
     //if histUrl variable is null then it is first folder or directory opened. so, nothing is stored in then histUrl variable.
-    if (histUrl == null) {
-      // let delList = [];
+    if (histUrl === null) {
       for (let i = 0; i < id.length; i++) {
         // let path = sessionStorage.getItem("source");
         let filepath = path.split(",")[id[i]].trim();
@@ -194,15 +184,13 @@ function del() {
             console.log("UNSUCCESSFUL FETCH FUNC");
           }
         })
-        .then(
-          (data) => {
-            if (data.status == 200) {
-              refresh();
-              alert("Deleted");
-            }
+        .then((data) => {
+          if (data.status == 200) {
+            refresh();
+            sessionStorage.removeItem("delId");
+            alert("Deleted");
           }
-          // run reload function after deleting the file to refresh the page
-        )
+        })
         .catch((error) => console.log("ERROR:" + error));
     } else {
       for (let i = 0; i < id.length; i++) {
@@ -226,6 +214,7 @@ function del() {
         .then((res) => {
           if (res.status === 200) {
             refresh();
+            sessionStorage.removeItem("delId");
             alert("Item Deleted");
           }
         })
@@ -251,6 +240,7 @@ function del() {
       .then((data) => {
         if (data.status == 200) {
           refresh();
+          sessionStorage.removeItem("delId");
           alert("Item Deleted");
         }
       })

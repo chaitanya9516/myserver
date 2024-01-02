@@ -1,6 +1,29 @@
 //@ts-nocheck
 
+// function ajxFunc(serverUrl, urlData, callback) {
+//   $.ajax({
+//     url: `http://127.0.0.1:5000/${serverUrl}`,
+//     type: "POST",
+//     dataType: "json",
+//     data: {
+//       url: urlData,
+//     },
+//     success: function (res) {
+//       // debugger;
+//       if (typeof callback === "function") {
+//         callback();
+//       }
+//       writeMnames(res);
+//     },
+//     error: function (err) {
+//       alert("unable to load please try again" + err);
+//       console.log(err);
+//     },
+//   });
+// }
+
 function ajxFunc(urlData, callback) {
+  // url: "http://127.0.0.1:5000/mnamesloc",
   $.ajax({
     url: "http://127.0.0.1:5000/mnamesloc",
     type: "POST",
@@ -25,13 +48,18 @@ function ajxFunc(urlData, callback) {
 //communicates with the server and fetch the data which is in the directory.
 function getNames(url) {
   // debugger;
-  if (url != null) {
-    ajxFunc(url);
-    // ajxFunc(url, "func1");
-  } else {
-    // ajxFunc("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
-    ajxFunc(defUrl);
-    // ajxFunc(defUrl, "func1");
+  try {
+    if (url != null) {
+      ajxFunc(url);
+      // ajxFunc(url, "func1");
+    } else {
+      // ajxFunc("C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\");
+      ajxFunc(defUrl);
+      // ajxFunc(defUrl, "func1");
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
   }
 }
 
@@ -41,12 +69,7 @@ function writeElements(data) {
   //Adding path as heading in folder content
   let path = sessionStorage.getItem("history");
   if (path === null) {
-    // var headTag = document.createElement("h2");
-    // headTag.innerText = defUrl;
-    // headTag.style.color = "#ffffff";
-    // divElement.appendChild(headTag);
-
-    //newly added
+    //newly added: Writing Folder URL as Heading
     let defUrl = "C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate\\";
     let splitPath = defUrl.split("\\");
     for (let i = 0; i < splitPath.length; i++) {
@@ -55,21 +78,16 @@ function writeElements(data) {
       span.setAttribute("class", "material-icons");
       span.innerText = "folder";
       headerElement.appendChild(span);
+
       let pTag = document.createElement("p");
       pTag.setAttribute("id", "pTag" + splitPath[i]);
       pTag.innerText = splitPath[i] + " " + ">";
-      // headTag.style.color = "#ffffff";
       pTag.style.color = "black";
       headerElement.appendChild(pTag);
     }
     //#############################################
   } else {
-    //let headTag = document.createElement("h2");
-    // headTag.innerText = path;
-    // headTag.style.color = "#ffffff";
-    // divElement.appendChild(headTag);
-
-    //newly added
+    //newly added: Writing Folder URL as Heading
     let splitPath = path.split("\\");
     for (let i = 0; i < splitPath.length; i++) {
       let span = document.createElement("span");
@@ -117,7 +135,7 @@ function writeElements(data) {
     var a = document.createElement("a");
     a.setAttribute("onclick", "getId(this)");
     a.style = "text-decoration:none";
-    a.style.font = "bold 22px Cinzel,sans-serif";
+    a.style.font = '"Roboto", sans-serif';
     a.setAttribute("margin", "3px");
     // a.style.color = "#ffffff";
     a.style.color = "black";
@@ -151,18 +169,4 @@ function writeMnames(res) {
     sessionStorage.setItem("source", res); //create local storage here
     writeElements(res);
   }
-}
-
-//This function is used to create the video player
-function video(path) {
-  let video = document.createElement("VIDEO");
-  if (video.canPlayType("video/mp4")) {
-    video.setAttribute("src", "/play_video/" + path);
-  } else {
-    video.setAttribute("src", "/play_video/" + path);
-  }
-  video.setAttribute("width", "620");
-  video.setAttribute("height", "640");
-  video.setAttribute("controls", "controls");
-  document.body.appendChild(video);
 }

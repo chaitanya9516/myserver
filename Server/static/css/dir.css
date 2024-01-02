@@ -7,21 +7,21 @@
 body {
   width: 100vw;
   height: 100vh;
-  /* box-sizing: border-box; */
-  /* background-color: rgb(230, 227, 222); */
 }
 
-#folderContent {
-  margin: 20px auto;
-  max-width: 800px;
-  /* background-color: #36454f; */
-  background-color: #7b919f;
-  padding: 10px;
-  margin-bottom: 10px;
+.navbar .navbar-expand-lg {
+  border-bottom: 1px solid black; /* this line is not working trying to draw a line not able to target the part*/
 }
 
-#headTag {
-  padding: 2px 2px;
+.navbar {
+  /* background-color: #7b919f; */
+  background-color: #f2f2f2;
+  border-bottom: #000;
+  height: 8%;
+}
+
+.navbar-nav .nav-item .nav-link {
+  margin-right: 10px; /* Increase this value to adjust the space between icons */
 }
 
 #nav {
@@ -29,16 +29,39 @@ body {
   position: relative;
 }
 
-span:hover {
+#navbarSupportedContent .nav-item span {
+  font-size: 30px;
+}
+
+#navbarSupportedContent .nav-item span:hover {
   box-shadow: 0 0 10px #49687d;
   border-radius: 50%;
   box-shadow: 0 0 10px #49687d, 0 0 20px 5px #49687d;
 }
 
-span:hover:before {
+#navbarSupportedContent .nav-item span:hover:before {
   filter: brightness(150%);
   animation: glowing-effect 1s infinite;
 }
+
+#headTag {
+  padding: 2px 2px;
+}
+
+#folderContent {
+  margin: 20px auto;
+  max-width: 60vw;
+  min-height: 80vh;
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* #folderContent a {
+  font-family: "Roboto", sans-serif;
+} */
 
 @keyframes glowing-effect {
   0% {

@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, send_file
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
+# from werkzeug.serving import make_ssl_devcert
 import json
 import subprocess
 import os
@@ -10,7 +11,13 @@ app = Flask(__name__)
 app.config['UPLOAD_PATH'] = folder_path
 # app.config['MAX_CONTENT_PATH'] = 1024
 app.config['MAX_CONTENT_LENGTH'] = 1024
-CORS(app, origins="*")
+
+mnamesloc = {
+    "origins": ["http://192.168.0.67:5000", "http://192.168.0.68:5000", "http://localhost:5000", "http://10.77.71.61:5000, http://10.77.24.105:5000"]
+}
+
+CORS(app, resources={r"/*": mnamesloc})
+# CORS(app)
 
 
 @app.route('/favicon.png')
@@ -18,9 +25,30 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.png', mimetype='image/png')
 
+# @app.after_request
+# def add_headers(res):
+#     res.headers.add('Access-Control-Allow-Origin', '*')
+#     res.headers.add('Access-Control-Allow-Headers',
+#                     'Content-Type,Authorization')
+#     res.headers.add('Access-Control-Allow-Methods',
+#                     'PUT, GET, POST, DELETE, OPTIONS')
+#     res.headers.add('Access-Control-Expose-Headers',
+#                     'Content-Type,Content-Length,Authorization,X-Pagination')
+#     res.headers["Cache-Control"] = 'no-cache, no-store, must-revalidate'
+#     res.headers["Pragma"] = 'no-cache'
+#     res.headers["Expires"] = '0'
+#     return res
+
 
 @app.after_request
 def add_headers(res):
+    # res.headers.add('Access-Control-Allow-Origin', '*')
+    res.headers.add('Access-Control-Allow-Headers',
+                    'Content-Type, Authorization')
+    res.headers.add('Access-Control-Allow-Methods',
+                    'PUT, GET, POST, DELETE, OPTIONS')
+    res.headers.add('Access-Control-Expose-Headers',
+                    'Content-Type, Content-Length, Authorization, X-Pagination')
     res.headers["Cache-Control"] = 'no-cache, no-store, must-revalidate'
     res.headers["Pragma"] = 'no-cache'
     res.headers["Expires"] = '0'
@@ -45,12 +73,18 @@ def video():
 
 @app.route('/play_video/<file_name>')
 def play_video(file_name):
-    return send_from_directory(folder_path, file_name)
+    return send_from_directory(folder_path, file_name, mimetype='video/mp4')
 
 
 @app.route('/files')
 def files():
-    return render_template('files.html')
+    # Change the extension to match the actual file type
+    file_path = '/path/to/your/file.html'
+    # Determine the mimetype based on the file extension
+    mimetype = 'text/html'
+    return send_file(file_path, mimetype=mimetype)
+
+    # return render_template('files.html')
 
 
 @app.route('/cmd')
@@ -64,8 +98,8 @@ def cmd():
 def mnames():
     if request.method == "POST":
         # jsondata = request.args.get('url') this is used to get the query string data in flask
-        jsondata = request.form.get('url')
-        data = jsondata
+        data = request.form.get('url')
+        # if data ==
         dirContentName = os.listdir(data)  # get names with extensions
         jsonn = json.dumps(dirContentName)
         return jsonn
@@ -173,4 +207,4 @@ def cmdProcess():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
