@@ -11,9 +11,7 @@ function ajxFunc(urlData, callback) {
     },
     success: function (res) {
       // debugger;
-      if (typeof callback === "function") {
-        callback();
-      }
+      if (typeof callback === "function") callback();
       writeMnames(res);
     },
     error: function (err) {

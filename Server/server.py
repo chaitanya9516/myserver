@@ -71,20 +71,29 @@ def video():
     return render_template('videoplayer.html')
 
 
-@app.route('/play_video/<file_name>')
-def play_video(file_name):
+# @app.route('/play_video/<file_name>')
+# def play_video(file_name):
+#     return send_from_directory(folder_path, file_name, mimetype='video/mp4')
+
+
+@app.route('/play_video')
+def play_video():
+    file_name = request.args.get('file_name')
     return send_from_directory(folder_path, file_name, mimetype='video/mp4')
 
 
 @app.route('/files')
 def files():
-    # Change the extension to match the actual file type
-    file_path = '/path/to/your/file.html'
-    # Determine the mimetype based on the file extension
-    mimetype = 'text/html'
-    return send_file(file_path, mimetype=mimetype)
 
-    # return render_template('files.html')
+    # absPath = safe_join(folder_path, url)
+
+    # Change the extension to match the actual file type
+    # file_path = '/path/to/your/file.html'
+    # Determine the mimetype based on the file extension
+    # mimetype = 'text/html'
+    # return send_file(absPath, mimetype=mimetype)
+
+    return render_template('files.html')
 
 
 @app.route('/cmd')
