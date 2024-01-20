@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local development files
+instance/
+env/
+
+# Logs
+logs/
+*.log
+
+# Database
+db.sqlite
+db.sqlite3
+
+# Compiled Python files
+*.pyc
+
+# Virtual environment
+venv/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+
+# Environment configuration
+.env
+
+# Dependency directories
+lib/
+lib64/
+local/
+
+# OS generated files
+.DS_Store
+Thumbs.db
