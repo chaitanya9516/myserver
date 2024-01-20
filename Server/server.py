@@ -5,8 +5,11 @@ from flask_cors import CORS
 import json
 import subprocess
 import os
+from dotenv import load_dotenv
 
-folder_path = 'C:\\Users\\sushm\\OneDrive\\Desktop\\Pasupulate'
+load_dotenv()
+
+folder_path = os.getenv('FOLDER_PATH')
 app = Flask(__name__)
 app.config['UPLOAD_PATH'] = folder_path
 # app.config['MAX_CONTENT_PATH'] = 1024
