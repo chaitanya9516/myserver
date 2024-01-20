@@ -9,23 +9,89 @@ function back() {
   let myArray = history.split("\\");
   myArray.pop();
   newArray = myArray.join("\\");
+
   sessionStorage.setItem("history", newArray); //if i want to go back again then this history would be needed.
   sessionStorage.setItem("forwardBtn", history); //latest change
   sessionStorage.removeItem("id"); //latest change
   sessionStorage.removeItem("delId"); //latest change
 
-  ajxFunc(newArray, clear);
-  //creating forward arrow in nav
+  // ajxFunc(newArray, clear);
 
-  const navElement = document.getElementById("nav");
-  const childElements = navElement.children.length;
-  if (childElements == 3) {
-    let span = document.createElement("span");
-    span.setAttribute("class", "material-icons");
-    span.setAttribute("onclick", "forward()");
-    span.innerText = "arrow_forward";
-    navElement.appendChild(span); //arrow_forward
-  }
+  // fetch(
+  //   "http://127.0.0.1:5000/navfunc?processed_data=${encodeURIComponent(newArray)}`",
+  //   {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  // )
+  //   .then((response) => {
+  //     debugger;
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     // Handle the data returned from the server
+  //     writeMnames(data);
+  //     const navElement = document.getElementById("nav");
+  //     const childElements = navElement.children.length;
+  //     if (childElements == 3) {
+  //       let span = document.createElement("span");
+  //       span.setAttribute("class", "material-icons");
+  //       span.setAttribute("onclick", "forward()");
+  //       span.innerText = "arrow_forward";
+  //       navElement.appendChild(span);
+  //     }
+  //     console.log(data);
+  //   })
+  //   .catch((error) => {
+  //     // console.log(error("Fetch error:", error));
+  //     error("Fetch error:", error);
+  //   });
+
+  $.ajax({
+    url: "http://127.0.0.1:5000/navfunc",
+    type: "POST",
+    dataType: "json",
+    data: {
+      url: newArray,
+    },
+    success: function (res) {
+      // debugger;
+      // if (typeof callback === "function") callback();
+      // writeMnames(res);
+
+      writeMnames(res);
+      const navElement = document.getElementById("nav");
+      const childElements = navElement.children.length;
+      //Forward arrow
+      if (childElements == 3) {
+        let span = document.createElement("span");
+        span.setAttribute("class", "material-icons");
+        span.setAttribute("onclick", "forward()");
+        span.innerText = "arrow_forward";
+        navElement.appendChild(span);
+      }
+    },
+    error: function (err) {
+      alert("Unable to fetch the directory files, please try again :" + err);
+      console.log(err);
+    },
+  });
+
+  //creating forward arrow in nav
+  // const navElement = document.getElementById("nav");
+  // const childElements = navElement.children.length;
+  // if (childElements == 3) {
+  //   let span = document.createElement("span");
+  //   span.setAttribute("class", "material-icons");
+  //   span.setAttribute("onclick", "forward()");
+  //   span.innerText = "arrow_forward";
+  //   navElement.appendChild(span);
+  // }
 }
 
 function forward() {

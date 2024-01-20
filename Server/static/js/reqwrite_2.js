@@ -15,7 +15,7 @@ function ajxFunc(urlData, callback) {
       writeMnames(res);
     },
     error: function (err) {
-      alert("unable to load please try again" + err);
+      alert("Unable to fetch the directory files, please try again :" + err);
       console.log(err);
     },
   });
@@ -148,7 +148,7 @@ function writeElements(data) {
 //Below functions creates the elements in the dom.
 function writeMnames(res) {
   //debugger;
-  if (res.length == 0) {
+  if (res.length === 0) {
     document.getElementById("folderContent").innerHTML += "No files found!";
   } else {
     sessionStorage.setItem("source", res); //create local storage here

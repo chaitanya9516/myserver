@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory, send_file
+from flask import Flask, request, render_template, send_from_directory, render_template, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 # from werkzeug.serving import make_ssl_devcert
@@ -13,7 +13,7 @@ app.config['UPLOAD_PATH'] = folder_path
 app.config['MAX_CONTENT_LENGTH'] = 1024
 
 mnamesloc = {
-    "origins": ["http://192.168.0.67:5000", "http://192.168.0.68:5000", "http://localhost:5000", "http://10.77.71.61:5000, http://10.77.24.105:5000"]
+    "origins": ["http://192.168.0.67:5000", "http://192.168.0.68:5000", "http://localhost:5000", "http://10.77.71.61:5000", "http://10.77.24.105:5000"]
 }
 
 CORS(app, resources={r"/*": mnamesloc})
@@ -24,20 +24,6 @@ CORS(app, resources={r"/*": mnamesloc})
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.png', mimetype='image/png')
-
-# @app.after_request
-# def add_headers(res):
-#     res.headers.add('Access-Control-Allow-Origin', '*')
-#     res.headers.add('Access-Control-Allow-Headers',
-#                     'Content-Type,Authorization')
-#     res.headers.add('Access-Control-Allow-Methods',
-#                     'PUT, GET, POST, DELETE, OPTIONS')
-#     res.headers.add('Access-Control-Expose-Headers',
-#                     'Content-Type,Content-Length,Authorization,X-Pagination')
-#     res.headers["Cache-Control"] = 'no-cache, no-store, must-revalidate'
-#     res.headers["Pragma"] = 'no-cache'
-#     res.headers["Expires"] = '0'
-#     return res
 
 
 @app.after_request
@@ -63,17 +49,21 @@ def home():
 
 @app.route('/dir2')
 def dir2():
-    return render_template("dir.html")
+    processed_data = request.args.get('processed_data')
+    print(type(processed_data))
+    html_redirect = redirect(url_for('dir2'))
+
+    # You can return both the JSON response and perform the redirection
+    return json_response, html_redirect
+    # return render_template('dir.html', processed_data=processed_data)
+    # return render_template("dir.html")
 
 
 @app.route('/vide0')
 def video():
-    return render_template('videoplayer.html')
-
-
-# @app.route('/play_video/<file_name>')
-# def play_video(file_name):
-#     return send_from_directory(folder_path, file_name, mimetype='video/mp4')
+    processed_data = request.args.get('processed_data')
+    return render_template('videoplayer.html', jsonify(processed_data=processed_data))
+    # return render_template('videoplayer.html')
 
 
 @app.route('/play_video')
@@ -103,12 +93,31 @@ def cmd():
 #######################################################################
 
 
+@app.route("/navfunc", methods=["POST"])
+def nav():
+    if request.method == "POST":
+        # this is used to get the query string data in flask
+        data_from_ajax = request.get_json()
+        video_extensions = (".mp4", ".mkv", ".flv", ".avi",
+                            ".mov", ".mpeg", ".mpg")
+        if any(ext in data_from_ajax for ext in video_extensions):
+            # get names with extensions
+            dirContentName = os.listdir(data_from_ajax)
+            jsonn = json.dumps(dirContentName)
+            return redirect(url_for('vide0', processed_data=jsonn))
+
+        elif "." not in data_from_ajax:
+            # get names with extensions
+            dirContentName = os.listdir(data_from_ajax)
+            jsonn = json.dumps(dirContentName)
+            return redirect(url_for('dir2', processed_data=jsonn))
+
+
 @app.route("/mnamesloc", methods=["GET", "POST"])
 def mnames():
     if request.method == "POST":
         # jsondata = request.args.get('url') this is used to get the query string data in flask
         data = request.form.get('url')
-        # if data ==
         dirContentName = os.listdir(data)  # get names with extensions
         jsonn = json.dumps(dirContentName)
         return jsonn
